@@ -42,3 +42,21 @@ def test_pending_lists_unfinished_tasks():
     todo.add("B")
     todo.tasks[0].done = True
     assert [t.title for t in todo.pending()] == ["B"]
+
+
+def test_complete_uses_display_number():
+    todo = TodoList()
+    todo.add("A")
+    todo.add("B")
+
+    todo.complete(1)
+
+    assert [task.done for task in todo.tasks] == [True, False]
+
+
+def test_complete_rejects_zero_number():
+    todo = TodoList()
+    todo.add("A")
+
+    with pytest.raises(IndexError):
+        todo.complete(0)
