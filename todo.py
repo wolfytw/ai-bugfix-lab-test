@@ -37,7 +37,9 @@ class TodoList:
 
     def complete(self, number: int) -> None:
         """把畫面上編號為 number 的任務標成完成。"""
-        self.tasks[number].done = True
+        if number < 1 or number > len(self.tasks):
+            raise IndexError("任務編號超出範圍")
+        self.tasks[number - 1].done = True
 
     def pending(self) -> list[Task]:
         return [t for t in self.tasks if not t.done]
